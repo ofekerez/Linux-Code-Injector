@@ -1,10 +1,12 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdint.h>
 #include "code_injector.h"
 
 
-void log_syscall_failure(int syscallReturnCode, char* error_message){
+#include <stdio.h>
+#include <string.h>
+#include <stdint.h>
+
+
+void log_syscall_failure(int syscallReturnCode, char* errorMessage){
     perror(error_message);
     exit(syscallReturnCode);
 }
@@ -44,8 +46,11 @@ int inject_shellcode(pid_t targetProcessId, struct user_regs_struct targetProces
     uint32_t *shellCodeStartAddress = (uint32_t *) shellCode;
     uint32_t *memoryAddressToChange = (uint32_t *) targetProcessInstructionPointer;
     printf("[+] shell code payload starting address %p\n", shellCode);
+
     printf("[+] target Process Insturction pointer %p\n", targetProcessInstructionPointer);
+
     printf("Shell code's size: %d\n", sizeof(shellCode));
+    
     for (int i = 0; i < sizeof(shellCode); i+=4, *shellCodeStartAddress++, *memoryAddressToChange++)
         {
             printf("[+] Running the ptrace syscall with the parameters: %d,\n %p,\n %s\n", targetProcessId, memoryAddressToChange, *shellCodeStartAddress);
