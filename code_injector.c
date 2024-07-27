@@ -10,11 +10,13 @@ void log_syscall_failure(int syscallReturnCode, char* error_message){
 }
 
 int attach_target_process(pid_t processId){
-    printf("[+] Tracing process %d without sending SIGSTOP\n", processId);
-    int syscallReturnCode = ptrace(PTRACE_SEIZE, processId, NULL, NULL); 
+    printf("[+] Attaching process %d\n", processId);
+    int syscallReturnCode = ptrace(PTRACE_ATTACH, processId, NULL, NULL); 
     if (syscallReturnCode < 0){
         log_syscall_failure(syscallReturnCode, "[-] Ptrace Seize syscall has failed\n");
     }
+    printf("[+] Waiting for process...\n");
+    wait(NULL);
     return 0;
 }
 
