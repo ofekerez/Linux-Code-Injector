@@ -69,7 +69,7 @@ int inject_shellcode(pid_t targetProcessId, struct targetProcessRegisters, char*
      return 0;
 }
 
-int inject_code(pid_t processId, char* shellCode){
+int inject(pid_t processId, char* shellCode){
     attach_target_process(processId);
     inject_shellcode(processId, get_target_process_registers(processId), shellCode);
     detach_target_process(processId);
@@ -84,6 +84,6 @@ int main(int argc, char* argv[], char *envp[]){
     }
     pid_t targetProcess = atoi(argv[1]);
     shellCode = (char* )argv[2];
-    inject_code(targetProcess, shellCode);
+    inject(targetProcess, shellCode);
     return 1;
 }
