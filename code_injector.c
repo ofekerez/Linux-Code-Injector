@@ -74,7 +74,7 @@ int main(int argc, char* argv[], char *envp[]){
         exit(-1);
     }
     pid_t targetProcess = atoi(argv[1]);
-    shellCode = (char* )argv[2];
+    char* shellCode = (char* )argv[2];
     inject(targetProcess, shellCode);
     return 1;
 }
