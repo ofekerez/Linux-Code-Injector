@@ -35,8 +35,8 @@ int detach_target_process(pid_t processId){
     return 0;
 }
 
-struct get_target_process_registers(pid_t processId){
-    struct user_regs_struct targetProcessRegisters;
+Registers get_target_process_registers(pid_t processId){
+    struct Registers targetProcessRegisters;
     printf("[+] Getting target process registers\n");
     int syscallReturnCode = ptrace(PTRACE_GETREGS, processId, &targetProcessRegisters); 
     if (syscallReturnCode < 0){
