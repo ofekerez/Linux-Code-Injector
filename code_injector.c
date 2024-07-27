@@ -53,7 +53,7 @@ int inject_shellcode(pid_t targetProcessId, struct user_regs_struct targetProces
             }
         }
     printf ("[+] Setting instruction pointer to %p\n", (void*)targetProcessRegisters.rip);
-    int syscallReturnCode = ptrace(PTRACE_SETREGS, targetProcess, NULL, &targetProcessRegisters);
+    int syscallReturnCode = ptrace(PTRACE_SETREGS, targetProcessId, NULL, &targetProcessRegisters);
     if(syscallReturnCode < 0){
          log_syscall_failure(syscallReturnCode, "[-] Ptrace Set Registers syscall failed\n");
         }
