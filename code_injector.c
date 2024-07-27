@@ -7,7 +7,7 @@
 
 
 void log_syscall_failure(int syscallReturnCode, char* errorMessage){
-    perror(error_message);
+    perror(errorMessage);
     exit(syscallReturnCode);
 }
 
