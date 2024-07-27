@@ -13,7 +13,7 @@ int attach_target_process(pid_t processId){
     printf("[+] Attaching process %d\n", processId);
     int syscallReturnCode = ptrace(PTRACE_ATTACH, processId, NULL, NULL); 
     if (syscallReturnCode < 0){
-        log_syscall_failure(syscallReturnCode, "[-] Ptrace Seize syscall has failed\n");
+        log_syscall_failure(syscallReturnCode, "[-] Ptrace Attach syscall has failed\n");
     }
     printf("[+] Waiting for process...\n");
     wait(NULL);
