@@ -10,7 +10,7 @@
 
 #include <sys/user.h>
 #include <sys/reg.h>
-#include "so_injector.h"
+#include "code_injector.h"
 
 
 void log_syscall_failure(int syscallReturnCode, char* error_message){
