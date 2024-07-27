@@ -45,7 +45,7 @@ Registers get_target_process_registers(pid_t processId){
     return targetProcessRegisters;
 }
 
-int inject_shellcode(pid_t targetProcessId, struct targetProcessRegisters, char* shellCode){
+int inject_shellcode(pid_t targetProcessId, Registers targetProcessRegisters, char* shellCode){
     void* targetProcessInstructionPointer = (void*) targetProcessRegisters.rip;
     printf("[+] Injecting shellcode to the target process RIP register: %p\n", targetProcessRegisters.rip);
     uint32_t *shellCodeStartAddress = (uint32_t *) shellCode;
