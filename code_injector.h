@@ -1,5 +1,14 @@
 #include <stdlib.h>
 #include <sys/types.h>
+
+#include <sys/ptrace.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <sys/user.h>
+#include <sys/reg.h>
+
+
 struct Registers;
 int inject(pid_t processId, char* shellCode);
 int attach_target_process(pid_t processId);
